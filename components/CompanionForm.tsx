@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/select";
 import { subjects } from "@/constants";
 import { Textarea } from "./ui/textarea";
+import { createCompanion } from "@/lib/companions.actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Companion is required." }),
@@ -50,11 +52,18 @@ const CompanionForm = () => {
     },
   });
 
+  const router = useRouter();
+
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companion = await createCompanion(values);
+
+    if (companion) {
+      router.push(`/companions/${companion.id}`);
+    } else {
+      console.log("Failed to create companion");
+      router.push("/");
+    }
   };
 
   return (
