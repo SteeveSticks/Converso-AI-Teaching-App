@@ -7,7 +7,6 @@ import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
 
 const SearchInput = () => {
   const pathname = usePathname();
-  console.log("Current Pathname:", pathname);
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("topic") || "";
@@ -15,7 +14,7 @@ const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const deleayDebounceFn = setTimeout(() => {
+    const delayDebounceFn = setTimeout(() => {
       if (searchQuery) {
         const newUrl = formUrlQuery({
           params: searchParams.toString(),
