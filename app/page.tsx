@@ -1,7 +1,6 @@
 import CompanionCard from "@/components/CompanionCard";
 import CompanionsLists from "@/components/CompanionsLists";
 import CTA from "@/components/CTA";
-import { recentSessions } from "@/constants";
 import { getAllCompanions, getRecentSessions } from "@/lib/companions.actions";
 import { getSubjectColor } from "@/lib/utils";
 import React from "react";
