@@ -1,6 +1,9 @@
+"use client";
+import { bookmarkCompanion } from "@/lib/companions.actions";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface CompanionCardProps {
   id: string;
@@ -19,18 +22,39 @@ const CompanionCard = ({
   duration,
   color,
 }: CompanionCardProps) => {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const createBookmark = async () => {
+    const bookmark = await bookmarkCompanion(id);
+    if (bookmark) {
+      toast.success("Bookmarked To Companion Library");
+      setIsBookmarked(true);
+    }
+  };
+
   return (
     <div>
       <article className="companion-card" style={{ backgroundColor: color }}>
         <div className="flex justify-between items-center">
           <div className="subject-badge">{subject}</div>
-          <button className="companion-bookmark">
-            <Image
-              src="/icons/bookmark.svg"
-              alt="bookmark"
-              width={12.5}
-              height={15}
-            />
+          <button
+            className="companion-bookmark"
+            onClick={() => createBookmark()}
+          >
+            {isBookmarked ? (
+              <Image
+                src="/icons/bookmark-filled.svg"
+                alt="bookmark"
+                width={12.5}
+                height={15}
+              />
+            ) : (
+              <Image
+                src="/icons/bookmark.svg"
+                alt="bookmark"
+                width={12.5}
+                height={15}
+              />
+            )}
           </button>
         </div>
 

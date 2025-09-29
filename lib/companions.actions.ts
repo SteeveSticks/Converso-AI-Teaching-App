@@ -160,3 +160,17 @@ export const newCompanionPermission = async () => {
     return true;
   }
 };
+
+export const bookmarkCompanion = async (companionId: string) => {
+  const { userId } = await auth();
+  const supabase = createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("bookmarks")
+    .insert({ companion_id: companionId, user_id: userId })
+    .select();
+
+  if (error) throw new Error(error.message || "Failed to bookmark companion");
+
+  return data;
+};
