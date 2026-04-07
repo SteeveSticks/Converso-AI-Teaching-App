@@ -23,7 +23,7 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
         </div>
       </section>
 
-      <section className="companions-grid">
+      <section className="flex justify-center gap-4 mt-10 flex-wrap w-full">
         {companions.map((companion) => (
           <CompanionCard
             key={companion.id}
