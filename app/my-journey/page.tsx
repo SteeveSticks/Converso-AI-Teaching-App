@@ -16,6 +16,7 @@ const Profile = async () => {
   if (!user) redirect("/sign-in");
 
   const companions = await getUserCompanions(user.id);
+  console.log("companions", companions);
   const sessionHistory = await getUserSessions(user.id);
 
   return (
